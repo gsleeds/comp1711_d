@@ -47,19 +47,26 @@ int main() {
     int buffer_size = 30;
     char line_buffer[buffer_size];
     int v = 0;
-    
-    FITNESS_DATA fitnessDataArray[1000];
+
+    FITNESS_DATA fitnessDataArray[100];
 
     while (fgets(line_buffer, buffer_size, file) != NULL){
-        char date[11], time[6], steps[5];
-        tokeniseRecord(line_buffer, "/", date,time,steps);
-        
-        strcpy(fitnessDataArray[v].date, date);
-        strcpy(fitnessDataArray[v].time, time);
-        fitnessDataArray[v].steps = atoi(steps);
+        char date[11], time[6], steps;
+        tokeniseRecord(line_buffer, "/", fitnessDataArray[v].date,fitnessDataArray[v].time,fitnessDataArray[v].steps);
         
         v++;
     }
+    int rNum = 0;
+    char rDate = fitnessDataArray[rNum].date;
+    char rTime = fitnessDataArray[rNum].time;
+    int rSteps = fitnessDataArray[rNum].date;
+
+    printf("Number of records in file: %d",v);
+    for (int i=0;i<3;i++){
+        rNum = i;
+        printf("%d/%d/%d",rDate,rTime,rSteps);
+    }
+    
 
     fclose(file);
     return 0;
