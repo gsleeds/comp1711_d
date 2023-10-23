@@ -6,7 +6,7 @@
 typedef struct {
 	char date[11];
 	char time[6];
-	int steps;
+	char steps[5];
 } FITNESS_DATA;
 
 // Define any additional variables here
@@ -43,30 +43,29 @@ void tokeniseRecord(const char *input, const char *delimiter,
 // Complete the main function
 int main() {
     FILE *file = fopen(filename, "r");
+    if (file == NULL){
+        perror("");
+        return 1;
+    }
 
     int buffer_size = 30;
     char line_buffer[buffer_size];
     int v = 0;
 
-    FITNESS_DATA fitnessDataArray[100];
-
+    FITNESS_DATA fitnessDataArray[59];
     while (fgets(line_buffer, buffer_size, file) != NULL){
-        char date[11], time[6], steps;
-        tokeniseRecord(line_buffer, "/", fitnessDataArray[v].date,fitnessDataArray[v].time,fitnessDataArray[v].steps);
-        
+        char *date[11], *time[6], *steps[5];
+        tokeniseRecord(line_buffer, ",", fitnessDataArray[v].date,fitnessDataArray[v].time,fitnessDataArray[v].steps);
         v++;
     }
-    int rNum = 0;
-    char rDate = fitnessDataArray[rNum].date;
-    char rTime = fitnessDataArray[rNum].time;
-    int rSteps = fitnessDataArray[rNum].date;
 
-    printf("Number of records in file: %d",v);
+    printf("Number of records in file: %d\n",v);
     for (int i=0;i<3;i++){
-        rNum = i;
-        printf("%d/%d/%d",rDate,rTime,rSteps);
+        printf("%s/%s/%s\n",
+        fitnessDataArray[i].date,
+        fitnessDataArray[i].time,
+        fitnessDataArray[i].steps);
     }
-    
 
     fclose(file);
     return 0;
