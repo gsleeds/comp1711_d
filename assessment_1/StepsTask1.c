@@ -60,11 +60,13 @@ int main() {
     }
 
     printf("Number of records in file: %d\n",v);
+    
+    
     for (int i=0;i<3;i++){
         printf("%s/%s/%s\n",
         fitnessDataArray[i].date,
         fitnessDataArray[i].time,
-        fitnessDataArray[i].steps);
+        strtok(fitnessDataArray[i].steps, "\n"));
     }
 
     fclose(file);
