@@ -59,7 +59,7 @@ int main() {
         v++;
     }
 
-    printf("Number of records in file: %d\n",v);
+    printf("Number of records in file: %d",v);
     
     
     for (int i=0;i<3;i++){
