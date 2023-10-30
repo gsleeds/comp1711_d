@@ -63,10 +63,12 @@ int main() {
     
     
     for (int i=0;i<3;i++){
-        printf("%s/%s/%s\n",
+        int num = atoi(strtok(fitnessDataArray[i].steps, "\n"));
+        printf("%s/%s/%d",
         fitnessDataArray[i].date,
         fitnessDataArray[i].time,
-        strtok(fitnessDataArray[i].steps, "\n"));
+        num
+        );
     }
 
     fclose(file);
