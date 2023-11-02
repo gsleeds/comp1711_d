@@ -59,12 +59,12 @@ int main() {
         v++;
     }
 
-    printf("Number of records in file: %d",v);
+    printf("Number of records in file: %d\n",v);
     
     
     for (int i=0;i<3;i++){
         int num = atoi(strtok(fitnessDataArray[i].steps, "\n"));
-        printf("%s/%s/%d",
+        printf("%s/%s/%d\n",
         fitnessDataArray[i].date,
         fitnessDataArray[i].time,
         num
