@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <math.h>
 #include "FitnessDataStruct.h"
 
 // Struct moved to header file
@@ -55,7 +56,7 @@ int main() {
         case 'A':
             printf("File name: ");
             char filen[100];
-            scanf("%s", &filen);
+            scanf("%s", filen);
             strcat(filename, filen);
             
             FILE *file = fopen(filename, "r");
@@ -116,12 +117,13 @@ int main() {
                 tokeniseRecord(line_buffer, ",", fitnessDataArray[v].date,fitnessDataArray[v].time,fitnessDataArray[v].steps);
                 v++;
             }
-            int sum;
+            double sum;
             for(int i=0;i<v;i++){
                 int num = atoi(strtok(fitnessDataArray[i].steps, "\n"));
                 sum=sum+num;
             }
-            printf("Mean step count: %d\n",sum/v);
+            int result = round((sum/v));
+            printf("Mean step count: %d\n",result);
             break;
         case 'F':
             while (fgets(line_buffer, buffer_size, file) != NULL){
@@ -162,7 +164,7 @@ int main() {
             return 0;
             break;
         default:
-            printf("Incorrect input...\n");
+            printf("Invalid choice. Try again.\n");
             break;
         }
     }
