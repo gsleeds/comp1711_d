@@ -1,7 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include <math.h>
 #include "FitnessDataStruct.h"
 
 // Struct moved to header file
@@ -122,7 +121,8 @@ int main() {
                 int num = atoi(strtok(fitnessDataArray[i].steps, "\n"));
                 sum=sum+num;
             }
-            int result = round((sum/v));
+            double r = sum/v;
+            int result = (int)(r+0.5);
             printf("Mean step count: %d\n",result);
             break;
         case 'F':
