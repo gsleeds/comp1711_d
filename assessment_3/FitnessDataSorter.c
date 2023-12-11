@@ -12,6 +12,7 @@ typedef struct {
 // Function to tokenize a record
 void tokeniseRecord(char *record, char delimiter, char *date, char *time, int *steps) {
     char *ptr = strtok(record, &delimiter);
+    *steps = -1;
     if (ptr != NULL) {
         strcpy(date, ptr);
         ptr = strtok(NULL, &delimiter);
