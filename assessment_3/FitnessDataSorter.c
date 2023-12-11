@@ -40,7 +40,6 @@ int main() {
     FitnessData data[100];
     char line[100];
     int count = 0;
-    int invalidFile = 0;
 
     while(fgets(line, sizeof(line), file)){
         line[strcspn(line,"\n")]=0;
@@ -49,7 +48,8 @@ int main() {
         tokeniseRecord(line, ',', temp.date, temp.time, &temp.steps);
 
         if (strlen(temp.date) != 10 || strlen(temp.time) != 5 || temp.steps <= 0) {
-            invalidFile = 1; // Invalid line
+            printf("Error: Invalid file format\n");
+            fclose(file);
             return 1;
         }
         else{
@@ -57,11 +57,6 @@ int main() {
         }
     }
     fclose(file);
-
-    if(invalidFile){
-        printf("Error: invalid file format");
-        return 1;
-    }
 
     for (int i = 0; i < count - 1; i++) {
         for (int j = 0; j < count - i - 1; j++) {
@@ -79,13 +74,15 @@ int main() {
     strcat(outputFilename, ".tsv");
 
     file = fopen(outputFilename, "w");
-    for(int i=0; i < count; i++){
-        if (i<count-1){
-            fprintf(file, "%s\t%s\t%d\n", data[i].date, data[i].time, data[i].steps);
+    if(!file){
+        printf("Error: Can't write\n");
+        return 1;
+    }
+    for (int i = 0; i < count; i++) {
+        fprintf(file, "%s\t%s\t%d", data[i].date, data[i].time, data[i].steps);
+        if (i < count - 1) {
+            fprintf(file, "\n");
         }
-        // else {
-        //    fprintf(file, "%s\t%s\t%d", data[i].date, data[i].time, data[i].steps);
-        //}
     }
     fclose(file);
     return 0;
