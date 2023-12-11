@@ -51,12 +51,18 @@ int main() {
 
         if (strlen(temp.date) != 10 || strlen(temp.time) != 5 || temp.steps <= 0) {
             invalidFile = 1; // Invalid line
+            return 0;
         }
         else{
             data[count++] = temp;
         }
     }
     fclose(file);
+
+    if(invalidFile){
+        printf("Error: invalid file format");
+        return 1;
+    }
 
     for (int i = 0; i < count - 1; i++) {
         for (int j = 0; j < count - i - 1; j++) {
@@ -67,11 +73,6 @@ int main() {
                 data[j + 1] = temp;
             }
         }
-    }
-
-    if(invalidFile){
-        printf("Error: invalid file format");
-        return 1;
     }
 
     char outputFilename[200];
