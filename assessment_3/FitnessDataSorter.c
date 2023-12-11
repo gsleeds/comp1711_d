@@ -47,14 +47,14 @@ int main() {
         FitnessData temp;
         tokeniseRecord(line, ',', temp.date, temp.time, &temp.steps);
 
-        if (strlen(temp.date) != 10 || strlen(temp.time) != 5 || temp.steps <= 0) {
+        if (strlen(temp.date) != 10 || temp.date[4] != '-' || temp.date[7] != '-' ||
+            strlen(temp.time) != 5 || temp.time[2] != ':' ||
+            temp.steps <= 0) {
             printf("Error: Invalid file format\n");
             fclose(file);
             return 1;
         }
-        else{
-            data[count++] = temp;
-        }
+        data[count++] = temp;
     }
     fclose(file);
 
@@ -70,19 +70,16 @@ int main() {
     }
 
     char outputFilename[200];
-    strcpy(outputFilename, filename);
-    strcat(outputFilename, ".tsv");
+    snprintf(outputFilename, sizeof(outputFilename), "%s.tsv", filename);
 
     file = fopen(outputFilename, "w");
+    
     if(!file){
         printf("Error: Can't write\n");
         return 1;
     }
     for (int i = 0; i < count; i++) {
-        fprintf(file, "%s\t%s\t%d", data[i].date, data[i].time, data[i].steps);
-        if (i < count - 1) {
-            fprintf(file, "\n");
-        }
+        fprintf(file, "%s\t%s\t%d\n", data[i].date, data[i].time, data[i].steps);
     }
     fclose(file);
     return 0;
