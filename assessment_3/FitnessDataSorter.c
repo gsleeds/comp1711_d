@@ -43,7 +43,6 @@ int main() {
     int invalidFile = 0;
 
     while(fgets(line, sizeof(line), file)){
-
         line[strcspn(line,"\n")]=0;
 
         FitnessData temp;
@@ -51,7 +50,7 @@ int main() {
 
         if (strlen(temp.date) != 10 || strlen(temp.time) != 5 || temp.steps <= 0) {
             invalidFile = 1; // Invalid line
-            return 0;
+            return 1;
         }
         else{
             data[count++] = temp;
@@ -84,9 +83,9 @@ int main() {
         if (i<count-1){
             fprintf(file, "%s\t%s\t%d\n", data[i].date, data[i].time, data[i].steps);
         }
-        else {
-            fprintf(file, "%s\t%s\t%d", data[i].date, data[i].time, data[i].steps);
-        }
+        // else {
+        //    fprintf(file, "%s\t%s\t%d", data[i].date, data[i].time, data[i].steps);
+        //}
     }
     fclose(file);
     return 0;
