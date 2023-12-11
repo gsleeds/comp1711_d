@@ -58,9 +58,35 @@ int main() {
     }
     fclose(file);
 
+    for (int i = 0; i < count - 1; i++) {
+        for (int j = 0; j < count - i - 1; j++) {
+            if (data[j].steps < data[j + 1].steps) {
+                // swapping
+                FitnessData temp = data[j];
+                data[j] = data[j + 1];
+                data[j + 1] = temp;
+            }
+        }
+    }
+
     if(invalidFile){
         printf("Error: invalid file format");
         return 1;
     }
 
+    char outputFilename[200];
+    strcpy(outputFilename, filename);
+    strcat(outputFilename, ".tsv");
+
+    file = fopen(outputFilename, "w");
+    for(int i=0; i < count; i++){
+        if (i<count-1){
+            fprintf(file, "%s\t%s\t%d\n", data[i].date, data[i].time, data[i].steps);
+        }
+        else {
+            fprintf(file, "%s\t%s\t%d", data[i].date, data[i].time, data[i].steps);
+        }
+    }
+    fclose(file);
+    return 0;
 }
